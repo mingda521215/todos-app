@@ -28,7 +28,7 @@ class TodosController extends Controller
     public function store()
     {
         $this->validate(request(), [
-            'name'        => 'required|min:6|max:12',
+            'name'        => 'required|min:6|max:30',
             'description' => 'required'
         ]);
         $data = request()->all();
@@ -39,6 +39,8 @@ class TodosController extends Controller
         $todo->completed = false;
 
         $todo->save();
+
+        session()->flash('success', 'Todo created successfully');
 
         return redirect('/todos');
     }
